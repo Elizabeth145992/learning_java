@@ -7,15 +7,14 @@ public class Exercise_9 {
         ArrayList<String> names = new ArrayList<>();
 
         for (String name : namesArray) {
-            names = addNames(name, names);
+            addNames(name, names);
         }
 
         printNames(names);
     }
 
-    public static ArrayList<String> addNames(String name, ArrayList<String> names) {
+    public static void addNames(String name, ArrayList<String> names) {
         names.add(name);
-        return names;
     }
 
     public static void printNames(ArrayList<String> names) {
