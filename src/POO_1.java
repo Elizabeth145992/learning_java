@@ -1,6 +1,10 @@
 public class POO_1 {
     
-    static class Producto {
+    interface Discountable {
+        double calculateDiscount(int percentage);
+    }
+
+    static class Producto implements Discountable {
         private int id;
         private String name;
         private double price;
@@ -52,6 +56,11 @@ public class POO_1 {
             }
             return false;
         }
+
+        @Override
+        public double calculateDiscount(int percentage) {
+            return price - ((price * percentage) / 100);
+        }
     }
 
     public static void main(String[] args) {
@@ -63,5 +72,6 @@ public class POO_1 {
         System.out.println("Nombre producto: " + product1.getName());
         System.out.println("El producto " + product1.getName() + " está disponible: " + available);
         System.out.println("Precio: $" + product1.getPrice() + ", Stock: " + product1.getStock());
+        System.out.println("Precio con descuento: $" + product1.calculateDiscount(10));
     }
 }
