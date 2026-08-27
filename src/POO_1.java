@@ -1,3 +1,8 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class POO_1 {
     
     interface Discountable {
@@ -64,7 +69,7 @@ public class POO_1 {
     }
 
     public static void main(String[] args) {
-        Producto product1 = new Producto(1, "Laptop", 999.99, 10);
+        /*Producto product1 = new Producto(1, "Laptop", 999.99, 10);
         product1.increaseStock(5);
         product1.decreaseStock(3);
         product1.setPrice(899.99);
@@ -72,6 +77,88 @@ public class POO_1 {
         System.out.println("Nombre producto: " + product1.getName());
         System.out.println("El producto " + product1.getName() + " está disponible: " + available);
         System.out.println("Precio: $" + product1.getPrice() + ", Stock: " + product1.getStock());
-        System.out.println("Precio con descuento: $" + product1.calculateDiscount(10));
+        System.out.println("Precio con descuento: $" + product1.calculateDiscount(10));*/
+
+        List<Producto> products = new ArrayList<>();
+        Map<Integer, Producto> productsMap = new HashMap<>();
+        Producto product1 = new Producto(1, "Laptop", 999.99, 10);
+        Producto product2 = new Producto(2, "Mouse", 80.85, 15);
+        Producto product3 = new Producto(3, "Tablet", 324.99, 0);
+        Producto product4 = new Producto(4, "KeyBoard", 150.99, 5);
+
+        //Agregar con ArrayList
+        products.add(product1);
+        products.add(product2);
+        products.add(product3);
+
+        //Agregar con Map
+        productsMap.put(1, product1);
+        productsMap.put(2, product2);
+        productsMap.put(3, product3);
+
+        Producto productMap = productsMap.get(2);
+        System.out.println("Producto obtenido con Map: " + productMap.getName());
+
+        productsMap.put(4, product4);
+        productsMap.remove(2);
+        System.out.println("Productos con Map: ");
+        for (Producto product : productsMap.values()) {
+            System.out.println(product.getName());
+        }
+
+        double totalMap = calculateInventoryValue(productsMap);
+        System.err.println("Total con Map: $" + totalMap);
+
+        Producto productFound = findProductById(products, 1);
+        if (productFound != null) {
+            System.out.println("Producto encontrado: " + productFound.getName());
+        }
+
+        System.out.println("Lista de productos con stock: ");
+        List<Producto> listProducts = getProductsWithStock(products);
+        for (Producto product: listProducts) {
+            System.err.println("Producto: " + product.getName());
+        }
+
+        double totalMoney = calculateInventoryValue(products);
+        System.out.println("Total: $" + totalMoney);
+
+    }
+
+    public static Producto findProductById(List<Producto> listProducts, int id) {
+       for (Producto product: listProducts) {
+        if (product.getId() == id) {
+            return product;
+        }
+       }
+       return null;
+    }
+
+    public static List<Producto> getProductsWithStock(List<Producto> products){
+        List<Producto> productosWithStock = new ArrayList<>();
+        for (Producto product: products) {
+            if(product.getStock() > 0) {
+                productosWithStock.add(product);
+            }
+        }
+        return productosWithStock;
+    }
+
+    public static double calculateInventoryValue(List<Producto> productos) {
+        double sumPrice = 0;
+
+        for ( Producto product: productos) {
+            sumPrice += product.getPrice() * product.getStock();
+        }
+        return sumPrice;
+    }
+
+    public static double calculateInventoryValue(Map<Integer, Producto> products) {
+        double sumInventory = 0;
+
+        for (Producto product : products.values()) {
+            sumInventory += product.getPrice() * product.getStock();
+        }
+        return sumInventory;
     }
 }
