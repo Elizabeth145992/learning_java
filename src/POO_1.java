@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class POO_1 {
     
@@ -107,7 +108,17 @@ public class POO_1 {
         }
 
         double totalMap = calculateInventoryValue(productsMap);
-        System.err.println("Total con Map: $" + totalMap);
+        System.out.println("Total con Map: $" + totalMap);
+
+        Producto productFoundMap = findProductByIdMap(productsMap, 1);
+        Producto productNotFound = findProductByIdMap(productsMap, 99);
+        if (productFoundMap != null) {
+            System.out.println("Producto encontrado con Map: " + productFoundMap.getName());
+        }
+        
+        if(productNotFound == null) {
+            System.out.println("Producto con id " + 99 +" no encontrado");
+        }
 
         Producto productFound = findProductById(products, 1);
         if (productFound != null) {
@@ -115,13 +126,19 @@ public class POO_1 {
         }
 
         System.out.println("Lista de productos con stock: ");
-        List<Producto> listProducts = getProductsWithStock(products);
-        for (Producto product: listProducts) {
+        //List<Producto> listProducts = getProductsWithStock(products);
+        List<Producto> listProductsStream = getProductsWithStockStream(products);
+
+        for (Producto product: listProductsStream) {
             System.err.println("Producto: " + product.getName());
         }
 
         double totalMoney = calculateInventoryValue(products);
         System.out.println("Total: $" + totalMoney);
+
+        getProductNames(products).forEach(nameProduct -> System.out.println("Nombre del producto: " + nameProduct));
+
+        getAvailableProductNames(products).forEach(nameStock -> System.out.println("Nombre del producto con stock: " + nameStock));
 
     }
 
@@ -144,6 +161,10 @@ public class POO_1 {
         return productosWithStock;
     }
 
+    public static List<Producto> getProductsWithStockStream(List<Producto> products) {
+        return products.stream().filter(product -> product.getStock() > 0).collect(Collectors.toList());
+    }
+
     public static double calculateInventoryValue(List<Producto> productos) {
         double sumPrice = 0;
 
@@ -160,5 +181,22 @@ public class POO_1 {
             sumInventory += product.getPrice() * product.getStock();
         }
         return sumInventory;
+    }
+
+    public static List<String> getProductNames(List<Producto> products) {
+        return products.stream()
+        .map(Producto::getName)
+        .collect(Collectors.toList());
+    }
+
+    public static List<String> getAvailableProductNames(List<Producto> products) {
+        return products.stream()
+        .filter(p -> p.getStock() > 0)
+        .map(Producto::getName)
+        .collect(Collectors.toList());
+    }
+
+    public static Producto findProductByIdMap(Map<Integer, Producto> products, int id) {
+        return products.get(id);
     }
 }
