@@ -40,9 +40,10 @@ public class POO_1 {
         }
 
         public void setPrice(double price) {
-            if (price >= 0) {
-                 this.price = price;
+            if (price < 0) {
+                throw new IllegalArgumentException("El precio no puede ser negativo.");
             }
+            this.price = price;
         }
 
         public boolean isAvailable() {
@@ -50,17 +51,20 @@ public class POO_1 {
         }
 
         public void increaseStock(int quantity) {
-            if(quantity > 0) {
-                stock += quantity;
+            if(quantity <= 0) {
+                throw new IllegalArgumentException("La cantidad a aumentar en stock debe ser mayor a 0.");
             }
+            stock += quantity;
         }
 
-        public boolean decreaseStock(int quantity) {
-            if(quantity > 0 && stock >= quantity) {
-                stock -= quantity;
-                return true;
+        public void decreaseStock(int quantity) {
+            if( quantity <= 0) {
+                throw new IllegalArgumentException("La cantidad a quitar debe ser mayor a 0.");
             }
-            return false;
+            if(stock < quantity) {
+                throw new IllegalArgumentException("No hay stock suficiente");
+            }
+            stock -= quantity;
         }
 
         @Override
@@ -70,15 +74,20 @@ public class POO_1 {
     }
 
     public static void main(String[] args) {
-        /*Producto product1 = new Producto(1, "Laptop", 999.99, 10);
-        product1.increaseStock(5);
-        product1.decreaseStock(3);
-        product1.setPrice(899.99);
-        String available = product1.isAvailable() ? "sí" : "no";
-        System.out.println("Nombre producto: " + product1.getName());
-        System.out.println("El producto " + product1.getName() + " está disponible: " + available);
-        System.out.println("Precio: $" + product1.getPrice() + ", Stock: " + product1.getStock());
-        System.out.println("Precio con descuento: $" + product1.calculateDiscount(10));*/
+        Producto productTest = new Producto(1, "Laptop", 999.99, 10);
+        try {
+            productTest.setPrice(1000);
+            productTest.increaseStock(-5);
+            productTest.decreaseStock(20);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+        
+        String available = productTest.isAvailable() ? "sí" : "no";
+        System.out.println("Nombre producto: " + productTest.getName());
+        System.out.println("El producto " + productTest.getName() + " está disponible: " + available);
+        System.out.println("Precio: $" + productTest.getPrice() + ", Stock: " + productTest.getStock());
+        System.out.println("Precio con descuento: $" + productTest.calculateDiscount(10));
 
         List<Producto> products = new ArrayList<>();
         Map<Integer, Producto> productsMap = new HashMap<>();
