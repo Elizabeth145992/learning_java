@@ -1,0 +1,44 @@
+GITHUB
+--- Comprobar configuración global
+git config --global user.name
+git config --global user.email
+
+--- clonar repositorios personales
+git clone git@github-personal:Elizabeth145992/aprendiendo_ReactJS.git
+
+--- Cuando se crea un repositorio personal configurar crendeciales solo para ese proyecto
+git config user.name "Elizabeth145992"       
+git config user.email "e.cruzramirez@ugto.mx"
+
+--- Comprobar configuración del proyecto
+git config user.name
+git config user.email
+
+--- Comprobar configuración local
+git config --list --local
+
+//Se debe de estar dentro de la carpeta .ssh
+-- Inicializr agente:
+eval $(ssh-agent -s)
+
+--- Agregar llave efinfo
+ssh-add ~/.ssh/github-efinfo
+
+
+---- Agregar llave personal
+ ssh-add ~/.ssh/github-personal
+
+--- Verificar si se inicializó el agente
+ssh-add -l
+
+--- Listar configuración del repositorio
+git config --list
+git config --show-origin --list
+
+
+
+---- Ver que tipo de url se esta usando
+ git remote -v
+
+---- Cambiar a SSH repositorios
+git remote set-url origin git@github-efinfo:efinfo/api_2.git
