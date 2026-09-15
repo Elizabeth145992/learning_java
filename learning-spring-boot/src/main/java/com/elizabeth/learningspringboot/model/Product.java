@@ -1,4 +1,4 @@
-package com.elizabeth.learningspringboot;
+package com.elizabeth.learningspringboot.model;
 
 public class Product {
     private String name;

@@ -1,4 +1,4 @@
-package com.elizabeth.learningspringboot;
+package com.elizabeth.learningspringboot.exception;
 
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;

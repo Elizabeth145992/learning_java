@@ -1,4 +1,4 @@
-package com.elizabeth.learningspringboot;
+package com.elizabeth.learningspringboot.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
