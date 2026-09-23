@@ -3,6 +3,8 @@ package com.elizabeth.learningspringboot.exception;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,5 +28,15 @@ public class GlobalExceptionHandler {
                 );
 
         return errors;
+    }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleNotFound(ProductNotFoundException exception) {
+        Map<String, String> error = new HashMap<>();
+        String message = exception.getMessage();
+        error.put("message", message);
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(error);
     }
 }
