@@ -1,15 +1,9 @@
-package com.elizabeth.learningspringboot;
+package com.elizabeth.learningspringboot.model;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
+public class User {
 
-public class CreateUserRequest {
-
-    @NotBlank(message = "El nombre es obligatorio")
     private String name;
-
-    @NotBlank(message = "El email es obligatorio")
-    @Email(message = "El email es inválido")
+    private int age;
     private String email;
 
     public String getName() {
@@ -18,6 +12,14 @@ public class CreateUserRequest {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public String getEmail() {

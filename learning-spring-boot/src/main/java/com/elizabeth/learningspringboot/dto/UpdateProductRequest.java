@@ -1,10 +1,10 @@
-package com.elizabeth.learningspringboot;
+package com.elizabeth.learningspringboot.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.NotNull;
 
-public  class CreateProductRequest {
+public class UpdateProductRequest {
     @NotBlank(message = "El nombre del producto es obligatiorio")
     private String name;
 
@@ -20,11 +20,11 @@ public  class CreateProductRequest {
         this.name = name;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 }
