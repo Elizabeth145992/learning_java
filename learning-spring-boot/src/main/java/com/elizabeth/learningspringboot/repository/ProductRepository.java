@@ -6,7 +6,7 @@ import com.elizabeth.learningspringboot.model.Product;
 public interface ProductRepository {
 
     Product save(Product product);
-    boolean updateById(Product product);
+    boolean updateProduct(Product product);
     List<Product> findAll();
     Product findById(Long id);
     boolean deleteById(Long id);

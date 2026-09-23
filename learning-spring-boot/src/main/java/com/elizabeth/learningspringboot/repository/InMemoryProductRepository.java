@@ -20,7 +20,7 @@ public class InMemoryProductRepository  implements ProductRepository {
     }
 
     @Override
-    public boolean updateById(Product product) {
+    public boolean updateProduct(Product product) {
         Product existingProduct = findById(product.getId());
 
         if (existingProduct == null) {

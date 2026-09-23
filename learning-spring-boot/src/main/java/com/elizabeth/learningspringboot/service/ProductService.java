@@ -29,15 +29,13 @@ public class ProductService {
     }
 
     public Product updateById(UpdateProductRequest request, Long id) {
-        Product product = productRepository.findById(id);
+        Product product = new Product();
 
-        if (product == null) {
-            throw new ProductNotFoundException("Producto no encontrado con el id " + id);
-        }
+        product.setId(id);
         product.setName(request.getName());
         product.setPrice(request.getPrice());
 
-        boolean updated = productRepository.updateById(product);
+        boolean updated = productRepository.updateProduct(product);
 
         if (!updated) {
             throw new ProductNotFoundException(
@@ -62,13 +60,7 @@ public class ProductService {
             product.setPrice(request.getPrice());
         }
 
-        boolean updated =  productRepository.updateById(product);
-
-        if (!updated) {
-            throw new ProductNotFoundException(
-                    "Producto no encontrado para actualizar con el id " + id
-            );
-        }
+        productRepository.updateProduct(product);
 
         return product;
     }
